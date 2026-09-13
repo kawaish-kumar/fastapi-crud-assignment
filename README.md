@@ -1,4 +1,7 @@
 # Task API — FastAPI CRUD Assignment
+## Swagger UI Screenshot
+
+![Swagger UI](swagger.png)
 
 A small in-memory REST API for managing a to-do list. It supports the four CRUD operations: Create, Read, Update and Delete.
 
