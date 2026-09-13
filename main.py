@@ -63,7 +63,11 @@ def list_tasks():
     return tasks
 
 
-@app.get("/tasks/{task_id}", summary="Get one task")
+@app.get(
+    "/tasks/{task_id}",
+    summary="Get one task",
+    responses={404: {"description": "Task not found"}}
+)
 def get_task(task_id: int):
     """Return one task by id, or 404 if it does not exist."""
     task = find_task(task_id)
