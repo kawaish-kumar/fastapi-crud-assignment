@@ -3,6 +3,16 @@
 A small in-memory REST API for managing a to-do list. It supports the four CRUD operations: Create, Read, Update and Delete.
 
 ## Features
+## API Features
+
+This API provides:
+
+- In-memory task storage
+- Create, read, update, and delete operations
+- Input validation for task titles and completion status
+- 404 responses for tasks that do not exist
+- Swagger UI documentation at `/docs`
+- Health check at `/health
 
 - `GET /` — API information
 - `GET /health` — health check
@@ -178,16 +188,19 @@ Use **Try it out** to:
 5. Confirm the final list.
 
 ## Example curl Output
+## cURL Output
 
-After the server is running, replace this section with an actual `curl -i` output from your own machine. Example:
+The `/health` endpoint was tested using `curl -i`:
 
 ```text
 HTTP/1.1 200 OK
+date: Sun, 13 Sep 2026 10:53:27 GMT
+server: uvicorn
+content-length: 15
 content-type: application/json
 
 {"status":"ok"}
 ```
-
 ## Swagger Screenshot
 
 Add your own Swagger UI screenshot here after running the API.
