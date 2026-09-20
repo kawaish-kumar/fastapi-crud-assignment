@@ -1,233 +1,37 @@
-# Task API — FastAPI CRUD Assignment
-## Swagger UI Screenshot
+# Task API - SQLite CRUD
 
-![Swagger UI](swagger.png)
+A simple REST API built with FastAPI and SQLite for managing to-do tasks.
 
-A small in-memory REST API for managing a to-do list. It supports the four CRUD operations: Create, Read, Update and Delete.
+## Technologies Used
 
-## Features
-## API Features
-
-This API provides:
-
-- In-memory task storage
-- Create, read, update, and delete operations
-- Input validation for task titles and completion status
-- 404 responses for tasks that do not exist
-- Swagger UI documentation at `/docs`
-- Health check at `/health
-
-- `GET /` — API information
-- `GET /health` — health check
-- `GET /tasks` — list all tasks
-- `GET /tasks/{id}` — get one task
-- `POST /tasks` — create a task
-- `PUT /tasks/{id}` — update a task
-- `DELETE /tasks/{id}` — delete a task
-- Correct HTTP status codes: `200`, `201`, `204`, `400`, `404`
-- In-memory storage only
-- Swagger UI at `/docs`
-
-## Requirements
-
-- Python 3.10+
+- Python
 - FastAPI
+- SQLite
 - Uvicorn
 
-## Installation and Run
+## Why SQLite?
 
-### 1. Create a virtual environment
+SQLite was chosen because it is lightweight, easy to set up, and does not require a separate database server. It is suitable for a small CRUD application and stores the data in a local database file.
 
-Windows:
+## Database
 
-```bash
-python -m venv venv
-venv\Scripts\activate
-```
+The SQLite database is stored in:
 
-macOS/Linux:
+`tasks.db`
 
-```bash
-python3 -m venv venv
-source venv/bin/activate
-```
+The database is automatically created when the application starts.
 
-### 2. Install dependencies
+The `tasks` table contains:
 
-```bash
-pip install -r requirements.txt
-```
+- `id` - INTEGER PRIMARY KEY
+- `title` - TEXT
+- `done` - BOOLEAN
 
-### 3. Start the server
+If the table is empty, the application automatically inserts three example tasks.
+
+## How to Run the API
+
+Open PowerShell in the project folder and run:
 
 ```bash
-uvicorn main:app --reload
-```
-
-Server:
-
-```text
-http://localhost:8000
-```
-
-Swagger UI:
-
-```text
-http://localhost:8000/docs
-```
-
-## Endpoint Table
-
-| Method | Endpoint | Purpose | Success |
-|---|---|---|---|
-| GET | `/` | API information | 200 |
-| GET | `/health` | Health check | 200 |
-| GET | `/tasks` | List all tasks | 200 |
-| GET | `/tasks/{id}` | Get one task | 200 |
-| POST | `/tasks` | Create a task | 201 |
-| PUT | `/tasks/{id}` | Update a task | 200 |
-| DELETE | `/tasks/{id}` | Delete a task | 204 |
-
-## Example Task
-
-```json
-{
-  "id": 1,
-  "title": "Learn FastAPI",
-  "done": false
-}
-```
-
-## Testing with curl
-
-### Root endpoint
-
-```bash
-curl -i http://localhost:8000/
-```
-
-### Health endpoint
-
-```bash
-curl -i http://localhost:8000/health
-```
-
-### List tasks
-
-```bash
-curl -i http://localhost:8000/tasks
-```
-
-### Get one task
-
-```bash
-curl -i http://localhost:8000/tasks/1
-```
-
-### Test 404
-
-```bash
-curl -i http://localhost:8000/tasks/99
-```
-
-Expected body:
-
-```json
-{"error":"Task 99 not found"}
-```
-
-### Create a task
-
-```bash
-curl -i -X POST http://localhost:8000/tasks \
-  -H "Content-Type: application/json" \
-  -d '{"title":"Buy milk"}'
-```
-
-Expected status: `201 Created`
-
-### Test POST validation
-
-```bash
-curl -i -X POST http://localhost:8000/tasks \
-  -H "Content-Type: application/json" \
-  -d '{}'
-```
-
-Expected status: `400 Bad Request`
-
-### Update a task
-
-```bash
-curl -i -X PUT http://localhost:8000/tasks/1 \
-  -H "Content-Type: application/json" \
-  -d '{"title":"Learn FastAPI well","done":true}'
-```
-
-Expected status: `200 OK`
-
-### Delete a task
-
-```bash
-curl -i -X DELETE http://localhost:8000/tasks/1
-```
-
-Expected status: `204 No Content`
-
-## Swagger UI Test
-
-Open:
-
-```text
-http://localhost:8000/docs
-```
-
-Use **Try it out** to:
-
-1. Create a task.
-2. List all tasks.
-3. Update the new task.
-4. Delete the task.
-5. Confirm the final list.
-
-## Example curl Output
-## cURL Output
-
-The `/health` endpoint was tested using `curl -i`:
-
-```text
-HTTP/1.1 200 OK
-date: Sun, 13 Sep 2026 10:53:27 GMT
-server: uvicorn
-content-length: 15
-content-type: application/json
-
-{"status":"ok"}
-```
-## Swagger Screenshot
-
-Add your own Swagger UI screenshot here after running the API.
-
-Example Markdown after saving the image as `swagger.png`:
-
-```markdown
-![Swagger UI](swagger.png)
-```
-
-## Important Note About In-Memory Storage
-
-The tasks are stored only in the Python program's memory. If the server is restarted, any tasks created or edited while it was running are lost, and the original three example tasks return. A database would provide persistent storage and prevent this data loss.
-
-## Suggested Git Commits
-
-Use meaningful commits while you build/test each stage yourself:
-
-```text
-Stage 0: hello server
-Stage 1: root and health endpoints
-Stage 2: read endpoints with 404
-Stage 3: create with validation
-Stage 4: full CRUD
-Stage 5: Swagger UI
-Stage 6: publish and docs
-```
+python -m uvicorn main:app --reload
